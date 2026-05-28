@@ -1,0 +1,161 @@
+Maven Build Pipeline in Jenkins (Clear Exam Steps)
+Step 1 — Install Requirements
+
+Install:
+
+Java JDK 17
+Jenkins
+Git
+Step 2 — Open Jenkins
+
+Open browser:
+
+http://localhost:8080
+
+Login:
+
+Username: admin
+Password: your password
+Step 3 — Install Maven Plugin
+
+Go to:
+
+Manage Jenkins → Plugins
+
+Click:
+
+Available Plugins
+
+Search:
+
+Maven Integration
+
+Install plugin.
+
+Step 4 — Configure Maven
+
+Go to:
+
+Manage Jenkins → Tools
+
+Scroll to:
+
+Maven Installations
+
+Click:
+
+Add Maven
+
+Fill:
+
+Name: Maven
+
+✅ Tick:
+
+Install automatically
+
+Click:
+
+Save
+Step 5 — Create Maven Project Folder
+
+Open CMD:
+
+mkdir C:\maven-demo
+Step 6 — Create pom.xml
+
+Inside:
+
+C:\maven-demo
+
+Create file:
+
+pom.xml
+
+Paste:
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo</groupId>
+    <artifactId>maven-demo</artifactId>
+    <version>1.0</version>
+
+</project>
+
+Save file.
+
+Step 7 — Create Jenkins Job
+
+In Jenkins:
+
+Click:
+
+New Item
+
+Enter name:
+
+simple-maven
+
+Select:
+
+Freestyle Project
+
+Click OK.
+
+Step 8 — Configure Job
+
+Under:
+
+Source Code Management
+
+Select:
+
+None
+Step 9 — Add Maven Build Step
+
+Scroll to:
+
+Build
+
+Click:
+
+Add build step
+
+Choose:
+
+Invoke top-level Maven targets
+
+Fill:
+
+Goals
+clean install
+POM
+C:\maven-demo\pom.xml
+Maven Version
+
+Select:
+
+Maven
+
+Click:
+
+Save
+Step 10 — Run CI Pipeline
+
+Click:
+
+Build Now
+Step 11 — View Output
+
+Click:
+
+Console Output
+
+Successful output:
+
+BUILD SUCCESS
