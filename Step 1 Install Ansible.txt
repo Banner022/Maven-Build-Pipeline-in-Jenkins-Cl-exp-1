@@ -1,0 +1,97 @@
+Step 1: Install Ansible
+
+On the Ansible Control Node:
+
+sudo apt update
+sudo apt install ansible -y
+
+Check installation:
+
+ansible --version
+Step 2: Create Inventory File
+
+Create a project folder:
+
+mkdir ansible-webapp
+cd ansible-webapp
+
+Create inventory file:
+
+nano hosts
+
+Add:
+[webservers]
+localhost ansible_connection=local
+
+Save and exit.
+
+Step 3: Test Connection
+ansible -i hosts webservers -m ping
+
+Expected output:
+
+SUCCESS => {
+    "ping": "pong"
+}
+Step 4: Create Playbook
+
+Create file:
+
+nano deploy.yml
+
+Paste:
+
+---
+- name: Deploy Sample Web Application
+  hosts: webservers
+  become: yes
+
+  tasks:
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Start Apache Service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Deploy Sample Web Page
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+            <title>My Web App</title>
+          </head>
+          <body>
+            <h1>Welcome to Ansible Deployment</h1>
+            <p>Web application deployed successfully!</p>
+          </body>
+          </html>
+
+Save the file.
+
+Step 5: Run Playbook
+
+Execute:
+ansible-playbook -i hosts deploy.yml --ask-become-pass
+
+Expected output:
+
+PLAY RECAP
+192.168.1.100 : ok=3 changed=3 unreachable=0 failed=0
+Step 6: Verify Deployment
+
+Open browser:
+
+http://localhost
+
+You should see:
+
+Welcome to Ansible Deployment
+Web application deployed successfully!
